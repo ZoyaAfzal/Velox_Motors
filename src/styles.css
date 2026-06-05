@@ -1,0 +1,129 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-velox-black: var(--velox-black);
+  --color-velox-charcoal: var(--velox-charcoal);
+  --color-velox-steel: var(--velox-steel);
+  --color-velox-gold: var(--velox-gold);
+  --color-velox-gold-light: var(--velox-gold-light);
+  --color-velox-platinum: var(--velox-platinum);
+  --color-velox-white: var(--velox-white);
+  --color-velox-muted: var(--velox-muted);
+
+  --font-display: "Cormorant Garamond", serif;
+  --font-sans: "DM Sans", sans-serif;
+  --font-mono: "DM Mono", "JetBrains Mono", monospace;
+
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-shimmer: shimmer 3s linear infinite;
+  --animate-bounce-slow: bounce-slow 2s ease-in-out infinite;
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  @keyframes shimmer {
+    0%   { background-position: -200% center; }
+    100% { background-position:  200% center; }
+  }
+  @keyframes bounce-slow {
+    0%, 100% { transform: translateY(0); opacity: 0.6; }
+    50%      { transform: translateY(8px); opacity: 1; }
+  }
+}
+
+:root, .dark {
+  --radius: 0.25rem;
+
+  --velox-black: oklch(0.12 0 0);
+  --velox-charcoal: oklch(0.16 0 0);
+  --velox-steel: oklch(0.22 0 0);
+  --velox-gold: oklch(0.76 0.13 86);
+  --velox-gold-light: oklch(0.86 0.11 88);
+  --velox-platinum: oklch(0.92 0 0);
+  --velox-white: oklch(0.97 0 0);
+  --velox-muted: oklch(0.55 0 0);
+
+  --background: var(--velox-black);
+  --foreground: var(--velox-white);
+  --card: var(--velox-charcoal);
+  --card-foreground: var(--velox-white);
+  --popover: var(--velox-charcoal);
+  --popover-foreground: var(--velox-white);
+  --primary: var(--velox-gold);
+  --primary-foreground: var(--velox-black);
+  --secondary: var(--velox-steel);
+  --secondary-foreground: var(--velox-white);
+  --muted: var(--velox-steel);
+  --muted-foreground: var(--velox-muted);
+  --accent: var(--velox-gold);
+  --accent-foreground: var(--velox-black);
+  --destructive: oklch(0.6 0.22 25);
+  --destructive-foreground: var(--velox-white);
+  --border: oklch(1 0 0 / 8%);
+  --input: oklch(1 0 0 / 12%);
+  --ring: var(--velox-gold);
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html { background-color: var(--color-velox-black); }
+  body {
+    background-color: var(--color-velox-black);
+    color: var(--color-velox-white);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background: var(--color-velox-gold);
+    color: var(--color-velox-black);
+  }
+}
+
+.shimmer-text {
+  background: linear-gradient(90deg, #C9A84C 0%, #E2C97E 50%, #C9A84C 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: shimmer 3s linear infinite;
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 40s linear infinite;
+}
+
+.font-display { font-family: var(--font-display); }
+.font-mono-ui { font-family: var(--font-mono); letter-spacing: 0.18em; text-transform: uppercase; }
