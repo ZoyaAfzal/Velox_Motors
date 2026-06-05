@@ -4,12 +4,9 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
-  HeadContent,
-  Scripts,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import { useEffect } from "react";
 
-import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
@@ -48,12 +45,20 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
         <p className="mt-3 text-sm text-velox-muted">Try again or head home.</p>
         <div className="mt-6 flex justify-center gap-3">
           <button
-            onClick={() => { router.invalidate(); reset(); }}
+            onClick={() => {
+              router.invalidate();
+              reset();
+            }}
             className="bg-velox-gold text-velox-black px-5 py-3 font-mono-ui text-[11px]"
           >
             Try again
           </button>
-          <a href="/" className="border border-white/20 px-5 py-3 font-mono-ui text-[11px] text-velox-platinum">Home</a>
+          <a
+            href="/"
+            className="border border-white/20 px-5 py-3 font-mono-ui text-[11px] text-velox-platinum"
+          >
+            Home
+          </a>
         </div>
       </div>
     </div>
@@ -61,42 +66,10 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  head: () => ({
-    meta: [
-      { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Velox Motors - Premium Automobiles · Copenhagen" },
-      { name: "description", content: "Velox Motors curates the world's most extraordinary automobiles. Porsche, Ferrari, Lamborghini, McLaren and more. Copenhagen - Est. 1994." },
-      { property: "og:title", content: "Velox Motors" },
-      { property: "og:description", content: "Premium automobiles for those who demand more than transportation." },
-      { property: "og:type", content: "website" },
-    ],
-    links: [
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" },
-      { rel: "stylesheet", href: appCss },
-    ],
-  }),
-  shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
   errorComponent: ErrorComponent,
 });
-
-function RootShell({ children }: { children: ReactNode }) {
-  return (
-    <html lang="en" className="dark">
-      <head>
-        <HeadContent />
-      </head>
-      <body>
-        {children}
-        <Scripts />
-      </body>
-    </html>
-  );
-}
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
